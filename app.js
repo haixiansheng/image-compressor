@@ -21,8 +21,9 @@ const I18N = {
     saved: '省了',
     larger: '变大',
     download: '下载',
-    downloadAll: '打包下载全部',
-    downloadAllZip: n => `打包下载 ${n} 张（ZIP）`,
+    downloadAll: '下载全部',
+    downloadOne: '⬇ 下载图片',
+    downloadAllZip: n => `📦 打包下载 ${n} 张（ZIP）`,
     totalOriginal: '原始总计',
     totalCompressed: '压缩后总计',
     totalSaved: '共省下',
@@ -47,7 +48,8 @@ const I18N = {
     larger: 'Larger',
     download: 'Download',
     downloadAll: 'Download all',
-    downloadAllZip: n => `Download all ${n} (ZIP)`,
+    downloadOne: '⬇ Download image',
+    downloadAllZip: n => `📦 Download all ${n} (ZIP)`,
     totalOriginal: 'Original total',
     totalCompressed: 'Compressed total',
     totalSaved: 'Total saved',
@@ -350,7 +352,14 @@ function render() {
       <div class="sum-item"><span>${T.images(ok.length)}</span><b></b></div>`;
   }
 
-  els.downloadAllBtn.textContent = T.downloadAllZip(ok.length);
+  // 单张 → 直接下载单张图；多张 → ZIP 打包
+  if (ok.length === 0) {
+    els.downloadAllBtn.textContent = T.downloadAll;
+  } else if (ok.length === 1) {
+    els.downloadAllBtn.textContent = T.downloadOne;
+  } else {
+    els.downloadAllBtn.textContent = T.downloadAllZip(ok.length);
+  }
   els.downloadAllBtn.disabled = ok.length < 1;
 }
 
@@ -364,6 +373,7 @@ function outName(it) {
 els.downloadAllBtn.addEventListener('click', async () => {
   const ok = state.items.filter(i => i.status === 'done' && i.blob);
   if (!ok.length) return;
+  // 单张输入 → 单张输出（绝不打包成 ZIP）
   if (ok.length === 1 || typeof JSZip === 'undefined') {
     // 单张 或 JSZip 不可用 → 逐张下载
     ok.forEach((it, i) => setTimeout(() => {
