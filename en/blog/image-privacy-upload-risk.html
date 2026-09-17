@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is Online Image Compressing Safe? Where Your Images Really Go · Image Compressor</title>
+<meta name="description" content="The privacy risk in online image compressors, and how to verify in 30 seconds via the browser Network panel whether your image is uploaded.">
+<link rel="canonical" href="https://haixiansheng.github.io/image-compressor/en/blog/image-privacy-upload-risk.html" />
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Is Online Image Compressing Safe? Where Your Images Really Go</h1>
+    <p class="sub">The privacy risk in online image compressors, and how to verify in 30 </p>
+  </header>
+  <section class="panel content article">
+
+    <p class="article-meta">2026-09-17 · ~1150 words · 5 min read</p>
+
+    <p>When choosing an online image compressor, most people only ask "how small does it get?"
+       But if you're handling <b>IDs, contracts, internal documents or private photos of people</b>,
+       there's a far more important question: <b>where did your image actually go?</b></p>
+
+    <h2>1. Most online tools receive your image</h2>
+    <p>The typical architecture of an online compressor:</p>
+    <ol>
+      <li>You <b>upload</b> the image to their server</li>
+      <li>The server compresses it</li>
+      <li>The result downloads back into your browser</li>
+    </ol>
+    <p>Look at step one — <b>your full-resolution image now sits on someone else's server.</b>
+       That's a consequence of the architecture, not of anyone's intentions.</p>
+
+    <h2>2. What "we delete it after 24 hours" really means</h2>
+    <ul>
+      <li><b>It's unverifiable.</b> You cannot inspect their disks, and there's usually no third-party audit.</li>
+      <li><b>"Delete" is ambiguous.</b> Backups, logs, caches and multi-region replication can keep copies alive well past the stated window.</li>
+      <li><b>There is an exposure window in transit.</b> Even over HTTPS, the image is fully readable in plaintext on their side once decrypted.</li>
+      <li><b>Risk accumulates.</b> These services pool enormous volumes of user images. One breach affects everyone at once — and this category has a track record.</li>
+    </ul>
+    <p>In short: <b>you're paying with trust and receiving an unverifiable promise.</b></p>
+
+    <h2>3. What client-side processing really means</h2>
+    <p>A different architecture performs all work inside your browser. Two Web APIs make it possible:</p>
+    <ul>
+      <li><b>Canvas API</b> — decode, redraw and re-encode images locally</li>
+      <li><b>Blob / toBlob()</b> — produce a downloadable file without a server</li>
+    </ul>
+    <p>No server is involved, which means such a tool <b>cannot</b>:</p>
+    <ul>
+      <li>upload your image (no request is ever made)</li>
+      <li>store it (there is nowhere to store it)</li>
+      <li>leak it (nothing was ever collected)</li>
+    </ul>
+    <p>That's the important distinction: not "the operator is more ethical" but
+       <b>"the architecture has no such capability"</b> — a promise can be broken, an
+       architecture cannot.</p>
+
+    <h2>4. Verify it yourself in 30 seconds</h2>
+    <ol>
+      <li>Open the tool page and press <b>F12</b></li>
+      <li>Switch to the <b>Network</b> panel and enable <b>Preserve log</b></li>
+      <li>Clear the log, then process an image</li>
+      <li>Read the request list</li>
+    </ol>
+    <p>How to interpret it:</p>
+    <ul>
+      <li>A large <code>POST</code> to a remote host → <b>your image was uploaded</b></li>
+      <li>Only static assets (html/css/js) → <b>the image stayed local</b></li>
+    </ul>
+    <p>This test <b>cannot be faked</b>, which makes it worth more than any amount of copywriting.</p>
+
+    <h3>Even simpler: the offline test</h3>
+    <p>Load the tool once, then <b>disconnect your network</b> (Wi-Fi off / cable out) and process
+       an image.</p>
+    <ul>
+      <li>It still works → computation is genuinely local ✅</li>
+      <li>It errors or hangs → it depends on a server ❌</li>
+    </ul>
+
+    <h2>5. Two often-overlooked privacy leaks</h2>
+
+    <h3>1. GPS coordinates in EXIF</h3>
+    <p>Photos from phones usually embed EXIF metadata, including <b>GPS latitude/longitude</b>.
+       Sharing the original file directly can publish your location.</p>
+    <p>The good news: <b>redrawing on Canvas discards EXIF</b>, so client-side compression strips
+       location data as a side effect. (Rename-only sharing does not.)</p>
+
+    <h3>2. Filenames are information too</h3>
+    <p><code>passport_john_smith_front.jpg</code> leaks on its own. Renaming costs nothing.</p>
+
+    <h2>6. When you should insist on local processing</h2>
+    <table class="compare-table">
+      <thead><tr><th>Content</th><th>Recommendation</th></tr></thead>
+      <tbody>
+        <tr><td>Passport / ID / driver's licence / bank card</td><td class="us">✅ Local only</td></tr>
+        <tr><td>Contracts, medical records, internal screenshots</td><td class="us">✅ Local only</td></tr>
+        <tr><td>Family photos, images of children</td><td class="us">✅ Prefer local</td></tr>
+        <tr><td>Photos showing house numbers, plates, office interiors</td><td class="us">✅ Prefer local</td></tr>
+        <tr><td>Unreleased product shots, design files</td><td class="us">✅ Local only</td></tr>
+        <tr><td>Public stock images, memes</td><td>⚠️ Upload-based tools acceptable</td></tr>
+      </tbody>
+    </table>
+    <p>The rule is simple: <b>if you'd be uncomfortable seeing this image leak, don't upload it
+       to any server.</b> Local tools are good enough now that there's no reason to take the risk
+       to save a few seconds.</p>
+
+    <h2>7. Try it</h2>
+    <p>Our <a href="../index.html">image compressor</a> has no backend at all — you can run both
+       tests above on it. For sensitive material, get in the habit of doing the offline check
+       once: <b>habits beat conclusions.</b></p>
+
+  </section>
+  <div class="ad-slot ad-bottom"></div>
+  <footer>
+    <nav class="foot-nav">
+      <a href="../index.html">Home</a> ·
+      <a href="index.html">All articles</a> ·
+      <a href="../about.html">About</a> ·
+      <a href="../privacy.html">Privacy Policy</a>
+    </nav>
+    <p class="copy">© 2026 Image Compressor</p>
+  </footer>
+</div>
+</body>
+</html>

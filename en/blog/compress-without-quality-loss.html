@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Compress Images Without Losing Quality · Image Compressor</title>
+<meta name="description" content="How image compression works, what the quality setting really controls, why dimensions matter more, plus recommended settings for 8 scenarios and three common mistakes.">
+<link rel="canonical" href="https://haixiansheng.github.io/image-compressor/en/blog/compress-without-quality-loss.html" />
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>How to Compress Images Without Losing Quality</h1>
+    <p class="sub">How image compression works, what the quality setting really controls,</p>
+  </header>
+  <section class="panel content article">
+
+    <p class="article-meta">2026-09-17 · ~1100 words · 5 min read</p>
+
+    <p>"I compressed it and now it looks blurry." This article explains three things:
+       <b>why compression loses quality at all</b>, <b>how to tell how far you can push it</b>,
+       and <b>which settings to use for which purpose</b> — so you can pick a setting once
+       instead of guessing.</p>
+
+    <h2>1. Why compression always costs something</h2>
+    <ul>
+      <li><b>Lossless (PNG, lossless WebP)</b> — rearranges data without dropping pixels, so the
+          result is <b>bit-identical</b> to the original. The price: it barely shrinks
+          (typically 10–30%, often less for photos).</li>
+      <li><b>Lossy (JPEG, lossy WebP)</b> — discards information the human eye is insensitive to
+          (high-frequency detail, colour precision). Typical savings: <b>70–95%</b>. This is what
+          almost every real use case wants.</li>
+    </ul>
+    <p>The key insight: lossy compression does not blur everything evenly — it
+       <b>removes what your eye is least likely to notice</b>. That is why quality 80 usually
+       looks identical: what was dropped is exactly what you were ignoring anyway.</p>
+
+    <h2>2. What the quality number actually controls</h2>
+    <p>Quality 1–100 is not a "sharpness percentage" — it is <b>quantisation precision</b>.
+       Lower values allow more aggressive merging of similar colours into one block.</p>
+    <table class="compare-table">
+      <thead><tr><th>Quality</th><th>Relative size</th><th>Visible difference</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td>95–100</td><td>100%</td><td>None</td><td>Print, re-editing, archiving</td></tr>
+        <tr><td><b>80–90</b></td><td>35–55%</td><td><b>Imperceptible</b></td><td><b>Web, social, everyday (recommended)</b></td></tr>
+        <tr><td>60–75</td><td>20–35%</td><td>Slightly soft under scrutiny</td><td>Social feeds, chat</td></tr>
+        <tr><td>40–55</td><td>12–22%</td><td>Detail loss visible</td><td>Thumbnails, previews</td></tr>
+        <tr><td>&lt;40</td><td>&lt;15%</td><td>Obvious blocking</td><td>Testing only</td></tr>
+      </tbody>
+    </table>
+    <p><b>80 is the widely accepted sweet spot</b>: roughly a third of the original size, and
+       most people cannot tell the difference at normal viewing distance.</p>
+
+    <h2>3. The bigger lever: dimensions, not quality</h2>
+    <p>This is the step most people skip. <b>Pixel count affects file size far more than the
+       quality setting.</b></p>
+    <p>File size is roughly proportional to pixel count. Shrinking 4000×3000 to 1920×1440 leaves
+       <b>23%</b> of the pixels — an automatic 77% saving, which matters far more than moving
+       quality from 95 to 60.</p>
+    <p>Practical guidance:</p>
+    <ul>
+      <li>Social media images → longest side 1080–1440 px is plenty (the platform re-compresses anyway)</li>
+      <li>In-article web images → 1200–1600 px (up to ~2000 px for retina)</li>
+      <li>Full-width hero images → 1920–2560 px</li>
+      <li>Printing → don't scale down; work backwards from DPI (A4 at 300 dpi needs ~3500 px)</li>
+      <li><b>Archiving only → don't compress at all</b>. Keep the original.</li>
+    </ul>
+    <p>The rule: <b>compress to the width it will actually be displayed at</b>.
+       Keeping a phone-only image at 4000 px is pure waste.</p>
+
+    <h2>4. Format choice: WebP first</h2>
+    <table class="compare-table">
+      <thead><tr><th>Format</th><th>Compression</th><th>Transparency</th><th>Compatibility</th></tr></thead>
+      <tbody>
+        <tr><td>JPEG</td><td>Medium</td><td>❌</td><td>⭐⭐⭐⭐⭐ universal</td></tr>
+        <tr><td><b>WebP</b></td><td><b>High (25–35% smaller than JPEG)</b></td><td>✅</td><td>⭐⭐⭐⭐ all modern browsers</td></tr>
+        <tr><td>PNG</td><td>Low (lossless)</td><td>✅</td><td>⭐⭐⭐⭐⭐ universal</td></tr>
+        <tr><td>AVIF</td><td>Highest</td><td>✅</td><td>⭐⭐ newer browsers</td></tr>
+      </tbody>
+    </table>
+    <p><b>Bottom line:</b> web assets and modern apps → <b>WebP</b>. Sending to a person or
+       uploading to a legacy system where you can't control the viewer → <b>JPEG</b> is safest.
+       Transparency with no quality loss → <b>PNG</b>.</p>
+
+    <h2>5. Recommended settings by scenario</h2>
+    <table class="compare-table">
+      <thead><tr><th>Scenario</th><th>Format</th><th>Quality</th><th>Max dimension</th></tr></thead>
+      <tbody>
+        <tr><td>Blog post image</td><td>WebP</td><td>78–82</td><td>1600 px</td></tr>
+        <tr><td>Hero / banner</td><td>WebP</td><td>72–78</td><td>1920 px</td></tr>
+        <tr><td>Social media post</td><td>WebP or JPEG</td><td>80</td><td>1440 px</td></tr>
+        <tr><td>Chat / messaging</td><td>JPEG</td><td>70–75</td><td>1600 px</td></tr>
+        <tr><td>Email attachment</td><td>JPEG</td><td>70</td><td>1280 px</td></tr>
+        <tr><td>Upload form (500 KB cap)</td><td>JPEG + target-size mode</td><td>auto</td><td>as needed</td></tr>
+        <tr><td>Product / e-commerce</td><td>WebP</td><td>85–90</td><td>1600 px</td></tr>
+        <tr><td>ID photo / archive</td><td>JPEG</td><td>95</td><td>no scaling</td></tr>
+      </tbody>
+    </table>
+
+    <h2>6. Three common mistakes</h2>
+    <h3>Mistake 1: "Re-compressing is harmless"</h3>
+    <p>It isn't — lossy damage is <b>cumulative</b>. JPEG → save as JPEG → save again layers
+       artefacts on top of artefacts (called <em>generation loss</em>).
+       Always compress <b>once, from the original</b>.</p>
+
+    <h3>Mistake 2: "Higher quality is always better"</h3>
+    <p>Quality 100 can be <b>2–3×</b> the size of quality 85 with no perceptible gain.
+       That's a lot of bytes for something nobody can see — and it directly slows page loads.</p>
+
+    <h3>Mistake 3: "Compressing means resizing"</h3>
+    <p>They're independent: you can lower quality without resizing, or resize without lowering
+       quality. But <b>resizing usually contributes far more</b> to size reduction —
+       so resize first, then tune quality.</p>
+
+    <h2>7. Try it yourself</h2>
+    <p>The fastest way to internalise this is to experiment. Our
+       <a href="../index.html">image compressor</a> runs entirely in your browser — your image is
+       never uploaded, and the <b>original and result are shown side by side</b> so you can drag
+       the quality slider and watch the difference in real time.</p>
+    <p>Suggested test: load a phone photo → set quality 80 → compare the two panels → then set
+       "max dimension" to 1440 and watch the size drop again. That one exercise usually makes the
+       "dimensions matter more than quality" point stick.</p>
+
+  </section>
+  <div class="ad-slot ad-bottom"></div>
+  <footer>
+    <nav class="foot-nav">
+      <a href="../index.html">Home</a> ·
+      <a href="index.html">All articles</a> ·
+      <a href="../about.html">About</a> ·
+      <a href="../privacy.html">Privacy Policy</a>
+    </nav>
+    <p class="copy">© 2026 Image Compressor</p>
+  </footer>
+</div>
+</body>
+</html>
