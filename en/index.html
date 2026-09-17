@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Compressor — Compress JPG, PNG &amp; WebP Online (Free, No Upload)</title>
+<meta name="description" content="Free online image compressor. Batch compress JPG, PNG and WebP with adjustable quality or a target file size — up to 90% smaller. Runs entirely in your browser, images are never uploaded.">
+<meta name="keywords" content="image compressor, compress image online, compress jpg, compress png, webp converter, reduce image size, batch image compression, shrink image, optimize images">
+<link rel="alternate" hreflang="zh-CN" href="https://haixiansheng.github.io/image-compressor/" />
+<link rel="alternate" hreflang="en" href="https://haixiansheng.github.io/image-compressor/en/" />
+<link rel="alternate" hreflang="x-default" href="https://haixiansheng.github.io/image-compressor/en/" />
+<link rel="canonical" href="https://haixiansheng.github.io/image-compressor/en/" />
+<link rel="stylesheet" href="../style.css">
+
+<!-- Structured data (SEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Image Compressor",
+  "url": "https://haixiansheng.github.io/image-compressor/en/",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "description": "Free online batch image compressor supporting JPG, PNG and WebP. Runs entirely in your browser — images are never uploaded.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "featureList": [
+    "Batch compression",
+    "Adjustable quality (1-100)",
+    "Target file size mode",
+    "JPG / PNG / WebP output",
+    "100% browser-based, no upload",
+    "ZIP download"
+  ],
+  "isAccessibleForFree": true
+}
+</script>
+
+<!-- ============ Google AdSense ============ -->
+<!-- After approval, replace ca-pub-XXXXXXXXXXXXXXXX with your publisher ID and uncomment -->
+<!--
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>🗜️ Image Compressor</h1>
+    <p class="sub">Batch compress · Up to 90% smaller · Never uploaded</p>
+    <p class="lang-switch"><a href="../">中文版</a></p>
+    <div class="trust-badges">
+      <span>🔒 No upload</span>
+      <span>🚫 No server</span>
+      <span>⚡ Instant</span>
+      <span>🆓 100% free</span>
+      <span>📦 ZIP download</span>
+    </div>
+  </header>
+
+  <!-- ============ Ad slot 1 ============ -->
+  <div class="ad-slot ad-top"></div>
+
+  <section id="uploadPanel" class="panel">
+    <div id="dropZone" class="drop-zone">
+      <div class="drop-icon">🖼️</div>
+      <p>Click to choose images, or drag &amp; drop them here</p>
+      <p class="hint">JPG / PNG / WebP / BMP / GIF · multiple files · Ctrl+V to paste</p>
+      <input type="file" id="fileInput" accept="image/*" multiple hidden>
+    </div>
+  </section>
+
+  <section id="workPanel" class="panel hidden">
+    <div class="toolbar">
+      <label class="ctrl">
+        <span>Mode</span>
+        <select id="mode">
+          <option value="quality">Quality</option>
+          <option value="target">Target size</option>
+        </select>
+      </label>
+
+      <label class="ctrl" id="qualityRow">
+        <span>Quality <b id="qualityVal">80</b></span>
+        <input type="range" id="quality" min="1" max="100" value="80">
+      </label>
+
+      <label class="ctrl hidden" id="targetRow">
+        <span>Target size (KB)</span>
+        <input type="number" id="targetKb" min="10" max="20000" step="10" value="200">
+      </label>
+
+      <label class="ctrl">
+        <span>Output format</span>
+        <select id="format">
+          <option value="auto">Auto (WebP preferred)</option>
+          <option value="webp">WebP</option>
+          <option value="jpeg">JPEG</option>
+          <option value="png">PNG (lossless)</option>
+        </select>
+      </label>
+
+      <label class="ctrl">
+        <span>Max dimension (px)</span>
+        <input type="number" id="maxDim" min="0" max="20000" step="100" value="0" placeholder="0 = no resize">
+      </label>
+    </div>
+
+    <div id="summary" class="summary"></div>
+    <p id="status" class="status"></p>
+
+    <div class="table-wrap">
+      <table class="file-table">
+        <thead>
+          <tr>
+            <th>Preview</th><th>File</th><th>Dimensions</th><th>Size</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="listBody"></tbody>
+      </table>
+    </div>
+
+    <div class="actions">
+      <button id="downloadAllBtn" class="btn primary">Download all</button>
+      <button id="addMoreBtn" class="btn">Add more</button>
+      <button id="clearBtn" class="btn">Clear list</button>
+    </div>
+  </section>
+
+  <!-- ============ Ad slot 2 ============ -->
+  <div class="ad-slot ad-mid"></div>
+
+  <!-- ============ Selling points ============ -->
+  <h2 class="section-title">Why choose this tool</h2>
+  <p class="section-sub">The only image compressor that literally <em>cannot</em> store your files</p>
+
+  <div class="features">
+    <div class="feature hero">
+      <div class="f-icon">🔒</div>
+      <h3>No upload, no server</h3>
+      <p>There is <b>no backend server at all</b>. Compression runs in your browser, your
+         images never leave your device, and we are <b>technically unable</b> to store them.</p>
+    </div>
+    <div class="feature">
+      <div class="f-icon">📦</div>
+      <h3>True batch + ZIP download</h3>
+      <p>Drop in dozens of images at once and download them all as a single ZIP — no
+         saving files one by one.</p>
+    </div>
+    <div class="feature">
+      <div class="f-icon">🎯</div>
+      <h3>Target size mode</h3>
+      <p>Say "under 200 KB" and the tool binary-searches the optimal quality to land just
+         under your limit — perfect for upload caps.</p>
+    </div>
+    <div class="feature">
+      <div class="f-icon">⚡</div>
+      <h3>Instant</h3>
+      <p>Local Canvas encoding: no queue, no upload, no server round-trip. Change a
+         setting and everything recompresses immediately.</p>
+    </div>
+    <div class="feature">
+      <div class="f-icon">🖼️</div>
+      <h3>Keeps your resolution</h3>
+      <p>Original dimensions are preserved by default — only the encoding is optimised.
+         Optionally cap the longest side for even smaller files.</p>
+    </div>
+    <div class="feature">
+      <div class="f-icon">💧</div>
+      <h3>No watermark, no limits</h3>
+      <p>Clean downloads, unlimited files and sizes, no account required.</p>
+    </div>
+  </div>
+
+  <section class="panel content">
+    <h2 class="section-title" style="margin-top:0">How it compares</h2>
+    <table class="compare-table">
+      <thead>
+        <tr><th>&nbsp;</th><th>Typical online tools</th><th>This tool</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Uploads your images?</td><td>❌ Yes</td><td class="us">✅ Never</td></tr>
+        <tr><td>Server could store your images?</td><td>⚠️ Technically yes</td><td class="us">✅ No server at all</td></tr>
+        <tr><td>Batch processing</td><td>Often capped at 5–20</td><td class="us">✅ Unlimited + ZIP</td></tr>
+        <tr><td>Target file size</td><td>Rarely supported</td><td class="us">✅ Automatic</td></tr>
+        <tr><td>Account required?</td><td>Often</td><td class="us">✅ None</td></tr>
+        <tr><td>Fees or limits?</td><td>Common</td><td class="us">✅ Free &amp; unlimited</td></tr>
+        <tr><td>Watermark?</td><td>Common</td><td class="us">✅ None</td></tr>
+        <tr><td>Data breach risk</td><td>Depends on their servers</td><td class="us">✅ Zero (no data sent)</td></tr>
+      </tbody>
+    </table>
+    <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:12px">
+      💡 Verify it yourself: press F12 → Network tab → compress an image.
+      You'll see <b>no image data is ever sent</b>.
+    </p>
+  </section>
+
+  <!-- ============ Content ============ -->
+  <section class="panel content">
+    <h2>📖 How to use</h2>
+
+    <h3>What does this tool do?</h3>
+    <p>It shrinks image file size while preserving visual quality. Typical uses: speeding up
+       website loading, reducing email attachment size, meeting upload size limits on forms
+       and portals, and freeing up phone storage.</p>
+
+    <h3>Steps</h3>
+    <ol>
+      <li><b>Add images</b> — click the upload area, drag in multiple files, or paste with Ctrl+V.</li>
+      <li><b>Pick a mode</b>:
+        <br>· <b>Quality</b> — drag the slider (1–100). Lower means smaller and softer. 80 is the sweet spot.
+        <br>· <b>Target size</b> — type "under 200 KB" and the tool finds the best quality that fits.</li>
+      <li><b>Choose an output format</b>
+        <br>· <b>Auto (recommended)</b> — WebP, which is 25–35% smaller than JPEG at equal quality.
+        <br>· <b>JPEG</b> — maximum compatibility for legacy systems.
+        <br>· <b>PNG</b> — lossless with transparency, but limited compression (resize helps most).</li>
+      <li><b>(Optional) Cap the dimensions</b> — set a max longest side to scale down and save much more.</li>
+      <li><b>Download</b> — individually, or use "Download all" to get a ZIP.</li>
+    </ol>
+
+    <h3>What to expect</h3>
+    <ul>
+      <li>Phone photos (3–5 MB) → usually <b>300–800 KB</b>, a 80–90% saving</li>
+      <li>Web images (500 KB–1 MB) → usually <b>100–250 KB</b>, a 70–80% saving</li>
+      <li>Already-optimised images (&lt;200 KB) → modest gains, maybe 10–20%</li>
+    </ul>
+
+    <h3>FAQ</h3>
+    <p><b>Q: Are my images uploaded to a server?</b><br>
+       A: No. Everything runs in your browser. Images never leave your device, and it works offline.</p>
+    <p><b>Q: Will quality suffer?</b><br>
+       A: Quality 80 (the default) is visually near-lossless for most photos. Use 90–95 when
+       quality is critical; 70 is fine for social media.</p>
+    <p><b>Q: Why didn't PNG shrink much?</b><br>
+       A: PNG is lossless, so there is little to reclaim. Switch to WebP or JPEG, or set a
+       max dimension to scale down.</p>
+    <p><b>Q: Why did some files get bigger?</b><br>
+       A: If the original was already highly optimised, re-encoding can add a little. The tool
+       flags these as "Larger" — just keep your original in that case.</p>
+    <p><b>Q: Is EXIF data (like GPS location) preserved?</b><br>
+       A: No. Redrawing on Canvas drops EXIF metadata, which conveniently also
+       <b>removes location privacy data</b> from your photos.</p>
+    <p><b>Q: How many files can I process?</b><br>
+       A: No hard limit, but memory-bound. Keep batches under ~100, or split very large images.</p>
+
+    <h3>Supported browsers</h3>
+    <p>Recent Chrome, Edge, Firefox and Safari. Chrome or Edge are recommended (best WebP
+       encoding support and therefore better compression).</p>
+  </section>
+
+  <!-- ============ Ad slot 3 ============ -->
+  <div class="ad-slot ad-bottom"></div>
+
+  <footer>
+    <p>Runs entirely in your browser · Your images never leave your device</p>
+    <nav class="foot-nav">
+      <a href="about.html">About</a> ·
+      <a href="privacy.html">Privacy Policy</a> ·
+      <a href="https://haixiansheng.github.io/face-mosaic/en/">Face Mosaic Tool</a> ·
+      <a href="https://github.com/haixiansheng/image-compressor" target="_blank" rel="noopener">Source code</a>
+    </nav>
+    <p class="copy">© 2026 Image Compressor · For lawful use only.</p>
+  </footer>
+</div>
+<script src="../lib/jszip.min.js"></script>
+<script src="../app.js"></script>
+</body>
+</html>

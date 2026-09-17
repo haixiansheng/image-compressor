@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://haixiansheng.github.io/image-compressor/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://haixiansheng.github.io/image-compressor/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://haixiansheng.github.io/image-compressor/en/"/>
+  </url>
+  <url>
+    <loc>https://haixiansheng.github.io/image-compressor/about.html</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://haixiansheng.github.io/image-compressor/privacy.html</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://haixiansheng.github.io/image-compressor/en/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://haixiansheng.github.io/image-compressor/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://haixiansheng.github.io/image-compressor/en/"/>
+  </url>
+  <url>
+    <loc>https://haixiansheng.github.io/image-compressor/en/about.html</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://haixiansheng.github.io/image-compressor/en/privacy.html</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>

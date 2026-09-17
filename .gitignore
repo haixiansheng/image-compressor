@@ -1,0 +1,7 @@
+*.mp4
+test_*.png
+test_*.jpg
+__pycache__/
+.DS_Store
+.indexnow-key
+out*.html

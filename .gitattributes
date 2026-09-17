@@ -1,0 +1,8 @@
+*.bin binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.pt binary
+*.onnx binary
+*.zip binary

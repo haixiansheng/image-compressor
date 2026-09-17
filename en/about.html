@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About · Image Compressor</title>
+<meta name="description" content="About the free online image compressor: how it works, privacy, and open source info.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>About</h1>
+    <p class="sub">A free, open-source, privacy-first online tool</p>
+  </header>
+
+  <section class="panel content">
+    <h2>Why we built this</h2>
+    <p>Compressing images is a daily need: keeping a site fast, getting under email
+       attachment limits, meeting upload caps on application portals, or freeing up phone
+       storage. But nearly every online compressor <b>uploads your images to its servers
+       first</b> — which is a privacy risk for photos of people, IDs, contracts or internal
+       documents.</p>
+    <p>So we built this: <b>all compression happens inside your browser</b>. Your images
+       never leave your device. No sign-up, no fees, no file limits.</p>
+
+    <h2>How it works</h2>
+    <ol>
+      <li><b>Decode</b> — the browser natively decodes your file (JPG / PNG / WebP / BMP / GIF).</li>
+      <li><b>Redraw and re-encode</b> — the image is drawn to a Canvas and re-encoded as
+          WebP / JPEG / PNG at your chosen quality. WebP is 25–35% smaller than JPEG at equal
+          quality, so it is the default.</li>
+      <li><b>Target size mode</b> — binary-searches the quality parameter (~8 iterations) to
+          find the best quality that still fits under your KB limit.</li>
+    </ol>
+    <p>No server-side computation is involved, so it even works offline.</p>
+
+    <h2>Privacy bonus</h2>
+    <p>Redrawing on Canvas discards the original EXIF metadata (capture time, device,
+       <b>GPS location</b>). That means compressing also strips location privacy data from
+       your photos.</p>
+
+    <h2>Open source</h2>
+    <p>Fully open source (MIT):
+       <a href="https://github.com/haixiansheng/image-compressor" target="_blank" rel="noopener">haixiansheng/image-compressor</a>.
+       Issues and pull requests are welcome.</p>
+
+    <h2>Disclaimer</h2>
+    <p>Provided "as is", with no guarantee regarding compression ratio or quality.
+       Always check the result and keep a backup of your originals.</p>
+  </section>
+
+  <footer>
+    <nav class="foot-nav">
+      <a href="index.html">Home</a> ·
+      <a href="privacy.html">Privacy Policy</a> ·
+      <a href="https://haixiansheng.github.io/face-mosaic/en/">Face Mosaic Tool</a> ·
+      <a href="https://github.com/haixiansheng/image-compressor" target="_blank" rel="noopener">Source code</a>
+    </nav>
+    <p class="copy">© 2026 Image Compressor</p>
+  </footer>
+
+</div>
+</body>
+</html>
