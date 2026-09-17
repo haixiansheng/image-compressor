@@ -10,9 +10,15 @@ SITE = f"https://{HOST}/image-compressor"
 
 URLS = [
     f"{SITE}/",
+    f"{SITE}/blog/",
+    f"{SITE}/blog/compress-without-quality-loss.html",
+    f"{SITE}/blog/image-privacy-upload-risk.html",
     f"{SITE}/about.html",
     f"{SITE}/privacy.html",
     f"{SITE}/en/",
+    f"{SITE}/en/blog/",
+    f"{SITE}/en/blog/compress-without-quality-loss.html",
+    f"{SITE}/en/blog/image-privacy-upload-risk.html",
     f"{SITE}/en/about.html",
     f"{SITE}/en/privacy.html",
 ]
