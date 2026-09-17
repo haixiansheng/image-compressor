@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Compressor — Compress JPG, PNG &amp; WebP Online (Free, No Upload)</title>
-<meta name="description" content="Free online image compressor. Batch compress JPG, PNG and WebP with adjustable quality or a target file size — up to 90% smaller. Runs entirely in your browser, images are never uploaded.">
-<meta name="keywords" content="image compressor, compress image online, compress jpg, compress png, webp converter, reduce image size, batch image compression, shrink image, optimize images">
+<title>Image Compressor — Compress a Photo Online (Free, No Upload, No ZIP)</title>
+<meta name="description" content="Free online image compressor. One image in, one image out — no ZIP, no unpacking. Adjust quality or set a target file size to shrink photos by up to 90%. Runs entirely in your browser; images are never uploaded.">
+<meta name="keywords" content="image compressor, compress image online, compress jpg, compress png, webp converter, reduce image size, shrink photo, optimize images, photo compressor">
 <link rel="alternate" hreflang="zh-CN" href="https://haixiansheng.github.io/image-compressor/" />
 <link rel="alternate" hreflang="en" href="https://haixiansheng.github.io/image-compressor/en/" />
 <link rel="alternate" hreflang="x-default" href="https://haixiansheng.github.io/image-compressor/en/" />
@@ -21,15 +21,15 @@
   "url": "https://haixiansheng.github.io/image-compressor/en/",
   "applicationCategory": "MultimediaApplication",
   "operatingSystem": "Any (Web Browser)",
-  "description": "Free online batch image compressor supporting JPG, PNG and WebP. Runs entirely in your browser — images are never uploaded.",
+  "description": "Free online image compressor. One image in, one image out — no ZIP. Runs entirely in your browser; images are never uploaded.",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "featureList": [
-    "Batch compression",
+    "One image in, one image out (no ZIP)",
     "Adjustable quality (1-100)",
     "Target file size mode",
     "JPG / PNG / WebP output",
     "100% browser-based, no upload",
-    "ZIP download"
+    "Strips EXIF location data"
   ],
   "isAccessibleForFree": true
 }
@@ -45,14 +45,14 @@
 <div class="app">
   <header>
     <h1>🗜️ Image Compressor</h1>
-    <p class="sub">Batch compress · Up to 90% smaller · Never uploaded</p>
+    <p class="sub">One image in · one image out · up to 90% smaller · never uploaded</p>
     <p class="lang-switch"><a href="../">中文版</a></p>
     <div class="trust-badges">
       <span>🔒 No upload</span>
       <span>🚫 No server</span>
       <span>⚡ Instant</span>
       <span>🆓 100% free</span>
-      <span>📦 ZIP download</span>
+      <span>💧 No watermark</span>
     </div>
   </header>
 
@@ -62,13 +62,28 @@
   <section id="uploadPanel" class="panel">
     <div id="dropZone" class="drop-zone">
       <div class="drop-icon">🖼️</div>
-      <p>Click to choose images, or drag &amp; drop them here</p>
-      <p class="hint">JPG / PNG / WebP / BMP / GIF · multiple files · Ctrl+V to paste</p>
-      <input type="file" id="fileInput" accept="image/*" multiple hidden>
+      <p>Click to choose an image, or drag &amp; drop one here</p>
+      <p class="hint">JPG / PNG / WebP / BMP · Ctrl+V to paste</p>
+      <input type="file" id="fileInput" accept="image/*" hidden>
     </div>
   </section>
 
   <section id="workPanel" class="panel hidden">
+    <div class="compare">
+      <figure class="cmp-item">
+        <figcaption><span>Original</span><b id="origSize">—</b></figcaption>
+        <div class="cmp-img"><img id="origImg" alt="Original"></div>
+        <p class="cmp-dims" id="origDims">—</p>
+      </figure>
+      <figure class="cmp-item result">
+        <figcaption><span>Compressed</span><b id="resultSize">—</b></figcaption>
+        <div class="cmp-img"><img id="resultImg" alt="Compressed"></div>
+        <p class="cmp-dims" id="resultDims">—</p>
+      </figure>
+    </div>
+
+    <p id="savings" class="savings"></p>
+
     <div class="toolbar">
       <label class="ctrl">
         <span>Mode</span>
@@ -100,28 +115,15 @@
 
       <label class="ctrl">
         <span>Max dimension (px)</span>
-        <input type="number" id="maxDim" min="0" max="20000" step="100" value="0" placeholder="0 = no resize">
+        <input type="number" id="maxDim" min="0" max="20000" step="100" value="0" placeholder="0 = keep original">
       </label>
     </div>
 
-    <div id="summary" class="summary"></div>
     <p id="status" class="status"></p>
 
-    <div class="table-wrap">
-      <table class="file-table">
-        <thead>
-          <tr>
-            <th>Preview</th><th>File</th><th>Dimensions</th><th>Size</th><th></th>
-          </tr>
-        </thead>
-        <tbody id="listBody"></tbody>
-      </table>
-    </div>
-
     <div class="actions">
-      <button id="downloadAllBtn" class="btn primary">Download all</button>
-      <button id="addMoreBtn" class="btn">Add more</button>
-      <button id="clearBtn" class="btn">Clear list</button>
+      <a id="downloadBtn" class="btn primary" download="image_min.jpg">⬇ Download image</a>
+      <button id="resetBtn" class="btn">Choose another image</button>
     </div>
   </section>
 
@@ -140,10 +142,10 @@
          images never leave your device, and we are <b>technically unable</b> to store them.</p>
     </div>
     <div class="feature">
-      <div class="f-icon">📦</div>
-      <h3>True batch + ZIP download</h3>
-      <p>Drop in dozens of images at once and download them all as a single ZIP — no
-         saving files one by one.</p>
+      <div class="f-icon">1️⃣</div>
+      <h3>One in, one out</h3>
+      <p>No ZIP archives, no unzipping, no batch surprises. Upload one image, download one
+         image — the filename gets a <code>_min</code> suffix.</p>
     </div>
     <div class="feature">
       <div class="f-icon">🎯</div>
@@ -155,18 +157,19 @@
       <div class="f-icon">⚡</div>
       <h3>Instant</h3>
       <p>Local Canvas encoding: no queue, no upload, no server round-trip. Change a
-         setting and everything recompresses immediately.</p>
+         setting and it recompresses immediately.</p>
     </div>
     <div class="feature">
-      <div class="f-icon">🖼️</div>
-      <h3>Keeps your resolution</h3>
-      <p>Original dimensions are preserved by default — only the encoding is optimised.
-         Optionally cap the longest side for even smaller files.</p>
+      <div class="f-icon">⚖️</div>
+      <h3>Side-by-side comparison</h3>
+      <p>Original and compressed shown next to each other with sizes and dimensions —
+         see for yourself that quality held up.</p>
     </div>
     <div class="feature">
-      <div class="f-icon">💧</div>
-      <h3>No watermark, no limits</h3>
-      <p>Clean downloads, unlimited files and sizes, no account required.</p>
+      <div class="f-icon">🕵️</div>
+      <h3>Strips location metadata</h3>
+      <p>Redrawing on Canvas drops the original EXIF data, including GPS coordinates —
+         compression that also protects your privacy.</p>
     </div>
   </div>
 
@@ -179,10 +182,9 @@
       <tbody>
         <tr><td>Uploads your images?</td><td>❌ Yes</td><td class="us">✅ Never</td></tr>
         <tr><td>Server could store your images?</td><td>⚠️ Technically yes</td><td class="us">✅ No server at all</td></tr>
-        <tr><td>Batch processing</td><td>Often capped at 5–20</td><td class="us">✅ Unlimited + ZIP</td></tr>
+        <tr><td>Workflow</td><td>Often ZIP + unzip</td><td class="us">✅ One in, one out</td></tr>
         <tr><td>Target file size</td><td>Rarely supported</td><td class="us">✅ Automatic</td></tr>
         <tr><td>Account required?</td><td>Often</td><td class="us">✅ None</td></tr>
-        <tr><td>Fees or limits?</td><td>Common</td><td class="us">✅ Free &amp; unlimited</td></tr>
         <tr><td>Watermark?</td><td>Common</td><td class="us">✅ None</td></tr>
         <tr><td>Data breach risk</td><td>Depends on their servers</td><td class="us">✅ Zero (no data sent)</td></tr>
       </tbody>
@@ -198,48 +200,49 @@
     <h2>📖 How to use</h2>
 
     <h3>What does this tool do?</h3>
-    <p>It shrinks image file size while preserving visual quality. Typical uses: speeding up
-       website loading, reducing email attachment size, meeting upload size limits on forms
-       and portals, and freeing up phone storage.</p>
+    <p>It shrinks a single image's file size while preserving visual quality. Typical uses:
+       meeting upload caps on forms and portals, getting under email attachment limits,
+       speeding up web pages, and freeing up phone storage.</p>
 
     <h3>Steps</h3>
     <ol>
-      <li><b>Add images</b> — click the upload area, drag in multiple files, or paste with Ctrl+V.</li>
-      <li><b>Pick a mode</b>:
-        <br>· <b>Quality</b> — drag the slider (1–100). Lower means smaller and softer. 80 is the sweet spot.
-        <br>· <b>Target size</b> — type "under 200 KB" and the tool finds the best quality that fits.</li>
-      <li><b>Choose an output format</b>
-        <br>· <b>Auto (recommended)</b> — WebP, which is 25–35% smaller than JPEG at equal quality.
-        <br>· <b>JPEG</b> — maximum compatibility for legacy systems.
-        <br>· <b>PNG</b> — lossless with transparency, but limited compression (resize helps most).</li>
-      <li><b>(Optional) Cap the dimensions</b> — set a max longest side to scale down and save much more.</li>
-      <li><b>Download</b> — individually, or use "Download all" to get a ZIP.</li>
+      <li><b>Upload one image</b> — click, drag &amp; drop, or paste with Ctrl+V.</li>
+      <li><b>It compresses automatically</b> — original and result appear side by side.</li>
+      <li><b>Tune it</b> (each change recompresses instantly):
+        <br>· <b>Quality</b> — drag the slider (1–100). Lower means smaller and softer; 80 is the sweet spot.
+        <br>· <b>Target size</b> — type "under 200 KB" and the tool finds the best quality that fits.
+        <br>· <b>Output format</b> — Auto (WebP, 25–35% smaller than JPEG), JPEG, or PNG.
+        <br>· <b>Max dimension</b> — set a cap to scale down and save much more.</li>
+      <li><b>Download</b> — click "Download image" to get <b>one</b> compressed file
+          (named with a <code>_min</code> suffix).</li>
     </ol>
 
     <h3>What to expect</h3>
     <ul>
-      <li>Phone photos (3–5 MB) → usually <b>300–800 KB</b>, a 80–90% saving</li>
+      <li>Phone photos (3–5 MB) → usually <b>300–800 KB</b>, an 80–90% saving</li>
       <li>Web images (500 KB–1 MB) → usually <b>100–250 KB</b>, a 70–80% saving</li>
-      <li>Already-optimised images (&lt;200 KB) → modest gains, maybe 10–20%</li>
+      <li>Already-optimised images (&lt;200 KB) → modest gains, maybe 10–20% or even slightly larger</li>
     </ul>
 
     <h3>FAQ</h3>
     <p><b>Q: Are my images uploaded to a server?</b><br>
        A: No. Everything runs in your browser. Images never leave your device, and it works offline.</p>
+    <p><b>Q: Why only one image at a time?</b><br>
+       A: To keep the workflow dead simple — upload one, download one. No ZIP, no unzipping,
+       no partial-batch failures. Just repeat for more images.</p>
     <p><b>Q: Will quality suffer?</b><br>
-       A: Quality 80 (the default) is visually near-lossless for most photos. Use 90–95 when
-       quality is critical; 70 is fine for social media.</p>
+       A: Quality 80 (the default) is visually near-lossless for most photos — and you can
+       compare original vs. result side by side. Use 90–95 when quality is critical;
+       70 is fine for social media.</p>
     <p><b>Q: Why didn't PNG shrink much?</b><br>
        A: PNG is lossless, so there is little to reclaim. Switch to WebP or JPEG, or set a
        max dimension to scale down.</p>
-    <p><b>Q: Why did some files get bigger?</b><br>
+    <p><b>Q: Why did my file get bigger?</b><br>
        A: If the original was already highly optimised, re-encoding can add a little. The tool
-       flags these as "Larger" — just keep your original in that case.</p>
+       tells you explicitly in that case — just keep your original.</p>
     <p><b>Q: Is EXIF data (like GPS location) preserved?</b><br>
        A: No. Redrawing on Canvas drops EXIF metadata, which conveniently also
        <b>removes location privacy data</b> from your photos.</p>
-    <p><b>Q: How many files can I process?</b><br>
-       A: No hard limit, but memory-bound. Keep batches under ~100, or split very large images.</p>
 
     <h3>Supported browsers</h3>
     <p>Recent Chrome, Edge, Firefox and Safari. Chrome or Edge are recommended (best WebP
@@ -250,7 +253,7 @@
   <div class="ad-slot ad-bottom"></div>
 
   <footer>
-    <p>Runs entirely in your browser · Your images never leave your device</p>
+    <p>Runs entirely in your browser · Your image never leaves your device</p>
     <nav class="foot-nav">
       <a href="about.html">About</a> ·
       <a href="privacy.html">Privacy Policy</a> ·
@@ -260,7 +263,6 @@
     <p class="copy">© 2026 Image Compressor · For lawful use only.</p>
   </footer>
 </div>
-<script src="../lib/jszip.min.js"></script>
 <script src="../app.js"></script>
 </body>
 </html>
