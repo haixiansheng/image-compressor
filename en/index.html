@@ -57,6 +57,62 @@
 <meta name="twitter:title" content="Image Compressor — Compress a Photo Online (Free, No Upload, No ZIP)">
 <meta name="twitter:description" content="Free online image compressor. One image in, one image out — no ZIP, no unpacking. Adjust quality or set a target file size to shrink photos by up to 90%. Runs entirely in your browser; images are never uploaded.">
 <meta name="twitter:image" content="https://haixiansheng.github.io/image-compressor/og-en.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are my images uploaded to a server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Everything runs in your browser. Images never leave your device, and it works offline."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why only one image at a time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "To keep the workflow dead simple — upload one, download one. No ZIP, no unzipping, no partial-batch failures. Just repeat for more images."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will quality suffer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Quality 80 (the default) is visually near-lossless for most photos — and you can compare original vs. result side by side. Use 90–95 when quality is critical; 70 is fine for social media."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why didn't PNG shrink much?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PNG is lossless, so there is little to reclaim. Switch to WebP or JPEG, or set a max dimension to scale down."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why did my file get bigger?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If the original was already highly optimised, re-encoding can add a little. The tool tells you explicitly in that case — just keep your original."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is EXIF data (like GPS location) preserved?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Redrawing on Canvas drops EXIF metadata, which conveniently also removes location privacy data from your photos."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="app">
